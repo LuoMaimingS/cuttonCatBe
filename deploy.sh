@@ -32,11 +32,7 @@ echo "🔌 激活虚拟环境..."
 echo "📦 安装项目依赖..."
 pip install -r requirements.txt
 
-# 5. 执行 Django 内置系统表的数据库迁移
-echo "🗄️ 执行数据库系统表迁移..."
-python manage.py migrate
-
-# 6. 停止旧的服务进程（保证可重入性：先杀掉旧进程，再起新进程）
+# 5. 停止旧的服务进程（保证可重入性：先杀掉旧进程，再起新进程）
 PORT=8000
 echo "🛑 尝试停止端口 $PORT 上的旧服务进程..."
 
@@ -50,13 +46,13 @@ else
     echo "没有发现运行中的旧服务。"
 fi
 
-# 7. 在后台启动新服务，并将输出重定向到日志文件
+# 6. 在后台启动新服务，并将输出重定向到日志文件
 # nohup (no hang up) 保证终端退出后程序继续运行，& 表示放入后台
 LOG_FILE="app.log"
 echo "🌟 在后台启动新服务，端口: $PORT ..."
 nohup python manage.py runserver 0.0.0.0:$PORT > "$LOG_FILE" 2>&1 &
 
-# 8. 检查启动结果
+# 7. 检查启动结果
 sleep 2
 if pgrep -f "python manage.py runserver 0.0.0.0:$PORT" > /dev/null; then
     echo "✅ 部署成功！"
