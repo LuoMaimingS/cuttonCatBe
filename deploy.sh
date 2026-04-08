@@ -23,7 +23,9 @@ fi
 
 # 3. 激活虚拟环境
 echo "🔌 激活虚拟环境..."
-source venv/bin/activate
+# 在 bash 脚本中，直接 source 可能因为路径或非交互式 shell 环境出问题
+# 推荐使用点号(.)来执行
+. venv/bin/activate
 
 # 4. 安装/更新依赖
 echo "📦 安装项目依赖..."
