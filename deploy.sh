@@ -15,9 +15,10 @@ echo "=========================================="
 # echo "📦 正在拉取最新代码..."
 # git pull origin main
 
-# 2. 检查并创建虚拟环境（保证可重入性：如果没有才创建）
-if [ ! -d "venv" ]; then
-    echo "🐍 未找到虚拟环境，正在创建 venv..."
+# 2. 检查并创建完整的虚拟环境（保证可重入性：如果没有 activate 脚本，说明没建好或损坏）
+if [ ! -f "venv/bin/activate" ]; then
+    echo "🐍 未找到完整的虚拟环境，正在清理并重新创建 venv..."
+    rm -rf venv
     python3 -m venv venv
 fi
 
